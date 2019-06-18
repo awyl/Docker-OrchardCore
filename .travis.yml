@@ -17,8 +17,8 @@ os:
   - linux
 
 script:
-  - apt update
-  - apt install -y qemu qemu-user-static qemu-user binfmt-support
+  - sudo apt update
+  - sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
   # - docker run --rm --privileged multiarch/qemu-user-static:register 
   - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 2.2.300
   - export PATH="/home/travis/.dotnet":"$PATH"
@@ -27,7 +27,7 @@ script:
   # extra the oc version from the csproj
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - echo $OC_VERSION
-  - echo $pwd
+  - pwd
   - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
   - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim .
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
