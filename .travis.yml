@@ -17,10 +17,10 @@ matrix:
   include:
     - env: 
         - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7
-        - ARCH=arm32v7-
+        - ARCH=arm32v7
     - env: 
         - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
-        - ARCH=x86-
+        - ARCH=x86
 
 before_install:
   - dotnet publish src/oc -o ./.build/release
