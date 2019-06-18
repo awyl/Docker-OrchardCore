@@ -4,10 +4,11 @@ FROM ${IMAGE_BASE}
 ENV ASPNETCORE_URLS http://+:80
 
 RUN mkdir -p /data /ocdlls /app && \
-    ln -s /data /app/App_Data
+    cd /app && \
+    ln -s /data App_Data
 
 WORKDIR /app
-ADD ./build/release /app
+ADD ./.build/release /app
 
 EXPOSE 80
 ENTRYPOINT ["dotnet", "oc.dll"]
