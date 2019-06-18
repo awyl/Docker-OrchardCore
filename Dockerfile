@@ -1,7 +1,7 @@
 ARG IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2.5-stretch-slim
 FROM ${IMAGE_BASE}
 
-COPY qemu-arm-static /usr/bin
+COPY qemu/ /usr/bin
 
 ENV ASPNETCORE_URLS http://+:80
 
