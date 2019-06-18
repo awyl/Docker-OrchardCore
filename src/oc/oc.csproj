@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="../Dependencies.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <!-- <PreserveCompilationContext>true</PreserveCompilationContext>
+    <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish> -->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\is-cache\**</DefaultItemExcludes>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!--<PackageReference Include="OrchardCore.Hosting.Console" />-->
+    <PackageReference Include="OrchardCore.Logging.NLog" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <Target Name="DoNotPublishAppData" BeforeTargets="BeforePublish">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="App_Data\**" />
+    </ItemGroup>
+  </Target>
+</Project>
