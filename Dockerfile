@@ -1,5 +1,5 @@
 ARG IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2.5-stretch-slim
-FROM {IMAGE_BASE}
+FROM ${IMAGE_BASE}
 
 ENV ASPNETCORE_URLS http://+:80
 

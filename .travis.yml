@@ -28,7 +28,7 @@ before_install:
 
 script:
   # extra the oc version from the csproj
-  - OC_VERSION=$(  cat oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
+  - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - docker build -t awyl/oc:$ARCH-$OC_VERSION -t awyl/oc:latest .
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
   - docker push awyl/oc;
