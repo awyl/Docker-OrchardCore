@@ -8,7 +8,7 @@ RUN mkdir -p /data /ocdlls /app && \
     ln -s /data App_Data
 
 WORKDIR /app
-ADD ./.build/release /app
+COPY .build/release /app
 
 EXPOSE 80
 ENTRYPOINT ["dotnet", "oc.dll"]
