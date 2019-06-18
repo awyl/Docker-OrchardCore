@@ -4,7 +4,6 @@ mono: none
 
 sudo: required
 
-dist: xenial
 services:
   - docker
 
@@ -14,11 +13,9 @@ env:
     - DOTNET_CLI_TELEMETRY_OPTOUT=1   
 
 os:
-  - linux
+  - osx
 
 script:
-  - sudo apt update
-  - sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 2.2.300
   - export PATH="/home/travis/.dotnet":"$PATH"
