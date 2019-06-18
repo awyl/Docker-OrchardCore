@@ -3,10 +3,10 @@ FROM ${IMAGE_BASE}
 
 ENV ASPNETCORE_URLS http://+:80
 
+WORKDIR /app
 RUN mkdir -p /data /ocdlls && \
     ln -s /data /app/App_Data
 
-WORKDIR /app
 ADD ./build/release .
 
 EXPOSE 80
