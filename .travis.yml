@@ -1,5 +1,5 @@
 language: csharp
-dotnet: 2.2.300
+# dotnet: 2.2.300
 mono: none
 
 sudo: required
@@ -14,10 +14,9 @@ env:
 os:
   - linux
 
-before_install:
-  - dotnet publish src/oc -o ./.build/release
-
 script:
+  - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 2.2.300
+  - dotnet publish src/oc -o ./.build/release
   # extra the oc version from the csproj
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
