@@ -29,7 +29,7 @@ script:
   - echo $OC_VERSION
   - pwd
   - mkdir qemu
-    docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim .
+  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim .
   - cp /usr/bin/qemu-arm-static qemu
   - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
