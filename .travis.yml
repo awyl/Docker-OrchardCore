@@ -1,0 +1,35 @@
+if: tag IS present
+
+language: csharp
+dotnet: 2.2.300
+
+sudo: required
+services:
+  - docker
+
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+    - DOTNET_CLI_TELEMETRY_OPTOUT=1   
+
+os:
+  - linux
+
+matrix:
+  include:
+    - env: 
+        - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7
+        - ARCH=arm32v7-
+    - env: 
+        - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
+        - ARCH=x86-
+
+before_install:
+  - dotnet publish src/oc -o ./.build/release
+
+script:
+  # extra the oc version from the csproj
+  - OC_VERSION=$(  cat oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
+  - docker build -t awyl/oc:$ARCH-$OC_VERSION -t awyl/oc:latest .
+  - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
+  - docker push awyl/oc;
