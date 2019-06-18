@@ -4,6 +4,7 @@ mono: none
 
 sudo: required
 
+dist: xenial
 services:
   - docker
 
@@ -13,12 +14,15 @@ env:
     - DOTNET_CLI_TELEMETRY_OPTOUT=1   
 
 os:
-  - osx
+  - linux
 
 script:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install -y qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - cp /usr/bin/qemu-arm-static .
   - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 2.2.300
-  - export PATH="/Users/travis/.dotnet":"$PATH"
+  - export PATH="/home/travis/.dotnet":"$PATH"
   - dotnet --info
   - dotnet publish src/oc -o $TRAVIS_BUILD_DIR/.build/release
   # extra the oc version from the csproj
