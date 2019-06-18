@@ -14,21 +14,13 @@ env:
 os:
   - linux
 
-matrix:
-  include:
-    - env: 
-        - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7
-        - ARCH=arm32v7
-    - env: 
-        - IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
-        - ARCH=x86
-
 before_install:
   - dotnet publish src/oc -o ./.build/release
 
 script:
   # extra the oc version from the csproj
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
-  - docker build -t awyl/oc:$ARCH-$OC_VERSION -t awyl/oc:latest .
+  - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
+  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch .
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
   - docker push awyl/oc;
