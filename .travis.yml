@@ -33,7 +33,7 @@ script:
   # build x86 version
   - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim .
   # copy the qemu file necessary for cross build
-  - mkdir $TRAVIS_BUILD_DIR/.root/usr/bin
+  - mkdir -p $TRAVIS_BUILD_DIR/.root/usr/bin
   - cp /usr/bin/qemu-arm-static $TRAVIS_BUILD_DIR/.root/usr/bin
   - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
   # deploy to docker hub
