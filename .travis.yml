@@ -17,20 +17,25 @@ os:
   - linux
 
 script:
+  # install qemu for cross build
   - sudo apt-get -qq update
   - sudo apt-get -qq install -y qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  # install dotnet core
   - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 2.2.300
   - export PATH="/home/travis/.dotnet":"$PATH"
   - dotnet --info
-  - dotnet publish src/oc -o $TRAVIS_BUILD_DIR/.build/release
-  # extra the oc version from the csproj
+  # build code
+  - dotnet publish src/oc -o $TRAVIS_BUILD_DIR/.root/app
+  # extract the oc version from the csproj
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - echo $OC_VERSION
-  - pwd
-  - mkdir qemu
+  # build x86 version
   - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim .
-  - cp /usr/bin/qemu-arm-static qemu
+  # copy the qemu file necessary for cross build
+  - mkdir $TRAVIS_BUILD_DIR/.root/usr/bin
+  - cp /usr/bin/qemu-arm-static $TRAVIS_BUILD_DIR/.root/usr/bin
   - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim-arm32v7 .
+  # deploy to docker hub
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
   - docker push awyl/oc;
