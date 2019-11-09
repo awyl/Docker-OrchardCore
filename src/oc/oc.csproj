@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <LangVersion>latest</LangVersion>
-    <OrchardVersion>1.0.0-rc1-10164</OrchardVersion>
+    <OrchardVersion>1.0.0-rc1-10656</OrchardVersion>
 
     <!-- <PreserveCompilationContext>true</PreserveCompilationContext>
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish> -->
