@@ -22,7 +22,7 @@ script:
   - sudo apt-get -qq install -y qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   # install dotnet core
-  - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 3.0.100
+  - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 3.1.102
   - export PATH="/home/travis/.dotnet":"$PATH"
   - dotnet --info
   # build code
