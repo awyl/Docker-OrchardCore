@@ -31,11 +31,11 @@ script:
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - echo $OC_VERSION
   # build x86 version
-  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.0.0-buster-slim .
+  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.2-buster-slim .
   # copy the qemu file necessary for cross build
   - mkdir -p $TRAVIS_BUILD_DIR/.root/usr/bin
   - cp /usr/bin/qemu-arm-static $TRAVIS_BUILD_DIR/.root/usr/bin
-  - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.0.0-buster-slim-arm32v7 .
+  - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.2-buster-slim-arm32v7 .
   # deploy to docker hub
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
   - docker push awyl/oc;
