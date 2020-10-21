@@ -22,7 +22,7 @@ script:
   - sudo apt-get -qq install -y qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   # install dotnet core
-  - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 3.1.302
+  - curl https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 3.1.403
   - export PATH="/home/travis/.dotnet":"$PATH"
   - dotnet --info
   # build code
@@ -31,11 +31,11 @@ script:
   - OC_VERSION=$(cat src/oc/oc.csproj | grep "</OrchardVersion>" | awk -F'OrchardVersion>|</' '{print $2}')
   - echo $OC_VERSION
   # build x86 version
-  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.6-buster-slim .
+  - docker build -t awyl/oc:x86-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.9-buster-slim .
   # copy the qemu file necessary for cross build
   - mkdir -p $TRAVIS_BUILD_DIR/.root/usr/bin
   - cp /usr/bin/qemu-arm-static $TRAVIS_BUILD_DIR/.root/usr/bin
-  - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.6-buster-slim-arm32v7 .
+  - docker build -t awyl/oc:arm32v7-$OC_VERSION --build-arg IMAGE_BASE=mcr.microsoft.com/dotnet/core/aspnet:3.1.9-buster-slim-arm32v7 .
   # deploy to docker hub
   - echo "$DOCKER_PASS" | docker login -u="$DOCKER_USER" --password-stdin;
   - docker push awyl/oc;
