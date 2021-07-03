@@ -9,10 +9,9 @@ The differences between this image to the official docker image:
 
 ## Tags
 
-awyl/oc:x86-{OrchardCore Version}
-awyl/oc:arm32v7-{OrchardCore Version}
+awyl/oc:{OrchardCore Version}
 
-They are on [Docker Hub](https://hub.docker.com/r/awyl/oc/tags).
+They are on [Docker Hub](https://hub.docker.com/r/awyl/oc).
 
 ## Usage
 
@@ -21,7 +20,7 @@ E.g., docker-compose.yml
 ```yml
 services:
   oc:
-    image: awyl/oc:x86-1.0.0-beta3-71674
+    image: awyl/oc:1.0.0-rc2-16348
     ports:
       - "80:80"
     environment:
