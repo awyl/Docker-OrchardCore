@@ -3,7 +3,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <LangVersion>latest</LangVersion>
-    <OrchardVersion>1.0.0-rc2-16348</OrchardVersion>
+    <OrchardVersion>1.2.0-preview-16573</OrchardVersion>
 
     <!-- <PreserveCompilationContext>true</PreserveCompilationContext>
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish> -->

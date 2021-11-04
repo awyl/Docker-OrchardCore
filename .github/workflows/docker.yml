@@ -37,7 +37,7 @@ jobs:
     - name: Push to DockerHub
       run: |
         docker buildx create --use
-        docker buildx build --platform linux/amd64,linux/arm/v7 --push -t awyl/oc:$OC_VERSION .
+        docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --push -t awyl/oc:$OC_VERSION .
         
 
     
