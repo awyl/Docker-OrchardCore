@@ -1,4 +1,4 @@
-ARG IMAGE_BASE=mcr.microsoft.com/dotnet/aspnet:5.0.11-buster-slim
+ARG IMAGE_BASE=mcr.microsoft.com/dotnet/aspnet:6.0.0-bullseye-slim
 FROM ${IMAGE_BASE}
 
 COPY .root /
